@@ -8,6 +8,7 @@ import {
   Post
 } from "@nestjs/common";
 import { Task } from "@prisma/client";
+import { TaskService } from "./task.service";
 import { PrismaService } from "src/database/prisma.service";
 import { CreateTaskDto } from "./dtos/create-task.dto";
 import { UpdateTaskDto } from "./dtos/update-task.dto";
@@ -17,19 +18,12 @@ import { CompleteTaskDto } from "./dtos/complete-task.dtc";
 export class TaskController {
   constructor(
     private prisma: PrismaService,
+    private taskService: TaskService,
   ) {}
 
   @Post("/create")
   async createTask(@Body() createTaskDto: CreateTaskDto): Promise<Task> {
-    const { title, description } = createTaskDto;
-
-    const task = await this.prisma.task.create({
-      data: {
-        title,
-        description,
-      },
-    });
-
+    const task = await this.taskService.create(createTaskDto);
     return task;
   }
 
