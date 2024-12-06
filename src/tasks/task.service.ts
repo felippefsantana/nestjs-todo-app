@@ -1,12 +1,10 @@
-import { Injectable } from "@nestjs/common";
-import { PrismaService } from "src/database/prisma.service";
-import { CreateTaskDto } from "./dtos/create-task.dto";
+import { Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/database/prisma.service';
+import { CreateTaskDto } from './dto/create-task.dto';
 
 @Injectable()
 export class TaskService {
-  constructor(
-    private prisma: PrismaService,
-  ) {}
+  constructor(private prisma: PrismaService) {}
 
   async create(createTaskDto: CreateTaskDto) {
     const { title, description } = createTaskDto;
