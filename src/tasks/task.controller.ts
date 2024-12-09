@@ -38,7 +38,7 @@ export class TaskController {
   }
 
   @Get(':id')
-  async findTaskById(@Param() params: any) {
+  async findTaskById(@Param() params: { id: string }) {
     const { id } = params;
     const task = await this.prisma.task.findUnique({
       where: {
@@ -51,7 +51,7 @@ export class TaskController {
 
   @Patch('/:id')
   async updateTaskById(
-    @Param() params: any,
+    @Param() params: { id: string },
     @Body() updateTaskDto: UpdateTaskDto,
   ) {
     const { id } = params;
@@ -87,7 +87,7 @@ export class TaskController {
 
   @Patch('/complete/:id')
   async completeTask(
-    @Param() params: any,
+    @Param() params: { id: string },
     @Body() completeTaskDto: CompleteTaskDto,
   ) {
     const { id } = params;
@@ -119,7 +119,7 @@ export class TaskController {
   }
 
   @Delete('/:id')
-  async deleteTaskById(@Param() params: any) {
+  async deleteTaskById(@Param() params: { id: string }) {
     const { id } = params;
 
     const task = await this.prisma.task.findUnique({
